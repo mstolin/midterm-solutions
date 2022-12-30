@@ -1,4 +1,4 @@
-use core::fmt::{Debug, Display};
+use core::fmt::Debug;
 
 pub trait Nextable {
     fn gimme_next(&self) -> Option<Box<Self>>;
@@ -18,6 +18,6 @@ impl Nextable for char {
     }
 }
 
-pub fn printnext<T: Nextable + Debug>(n: T) {
+pub fn printnext<T>(n: T) where T: Nextable + Debug {
     println!("next of {:?} is {:?}", n, n.gimme_next())
 }

@@ -1,8 +1,6 @@
 // ##########
 
-use std::borrow::{Borrow, BorrowMut};
 use std::cmp::Ordering;
-use std::ops::Deref;
 
 #[derive(Debug)]
 pub struct List<T> {
@@ -97,6 +95,29 @@ impl<T> List<T> {
     }
 }
 
+impl<T> List<T> {
+    pub fn get(&self, p: i32) -> Option<&T> {
+        let mut i = 0;
+        let mut current = self.head.as_ref();
+
+        while i < p {
+            match current {
+                None => return None,
+                Some(node) => {
+                    current = node.next.as_ref();
+                    i+=1;
+                }
+            }
+        }
+
+        if let Some(v) = current {
+            Some(&v.elem)
+        } else {
+            None
+        }
+    }
+}
+
 impl<T> List<T> where T: PartialOrd {
     pub fn add(&mut self, elem: T) {
         match self.head.as_mut() {
@@ -115,23 +136,3 @@ impl<T> List<T> where T: PartialOrd {
         self.len+=1;
     }
 }
-
-/*impl<T> List<T> where T: PartialEq {
-    pub fn contains(&mut self, elem: T) -> bool {
-        match self.head.take() {
-            None => false,
-            Some(n) => self._contains(n, &elem)
-        }
-    }
-
-    fn _contains(&self, node: Box<Node<T>>, elem: &T) -> bool {
-        if node.elem == *elem {
-            true
-        } else {
-            match node.next {
-                None => false,
-                Some(next) => self._contains(next, elem)
-            }
-        }
-    }
-}*/

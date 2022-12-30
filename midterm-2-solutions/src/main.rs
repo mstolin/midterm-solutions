@@ -59,6 +59,15 @@ fn main() {
     let s : String = format!("{:?}",l);
     assert_eq!(s.contains("Vec"),false);
 
+    let l : List<i32> = List::new();
+    println!("{:?}",l);
+    assert_eq!(l.get(0),None);
+    assert_eq!(l.get(1),None);
+    let l = List{ head: Some(Box::new(Node{ elem: 4, next: None })), len: 1 };
+    assert_eq!(l.get(0),Some(&4));
+    let s : String = format!("{:?}",l);
+    assert_eq!(s.contains("Vec"),false);
+
     let elem1 = Content::new_with("what".to_string(),true,2);
     let elem2 = Content::new_with("this".to_string(),false,18);
     let elem3 = Content::new_with("dope".to_string(),false,5);
@@ -73,6 +82,14 @@ fn main() {
     let elem4 = Content::new_with("nope".to_string(),false,1);
     l.add(elem4);
     println!("{:?}",l);
+
+    let elem1 = Content::new_with("what".to_string(),true,2);
+    let elem2 = Content::new_with("this".to_string(),false,18);
+    let elem3 = Content::new_with("who".to_string(),true,18);
+
+    assert_eq!(elem1<elem2,true);
+    assert_eq!(elem2<elem1,false);
+    assert_eq!(elem3==elem2,true);
 
     // ------------------ 5. ------------------
 
