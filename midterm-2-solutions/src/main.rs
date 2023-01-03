@@ -9,8 +9,8 @@ mod ex_5;
 use crate::ex_1::printnext;
 use crate::ex_2::Wrapper;
 use crate::ex_3::basicbox_sum;
-use crate::ex_4::{Content, List, Node};
-// use crate::ex_5::{Content, Graph, SameBool};
+use crate::ex_4::{Content as EX4_Content, List, Node};
+use crate::ex_5::{Content as EX5_Content, Graph, SameBool};
 
 fn main() {
 
@@ -68,10 +68,10 @@ fn main() {
     let s : String = format!("{:?}",l);
     assert_eq!(s.contains("Vec"),false);
 
-    let elem1 = Content::new_with("what".to_string(),true,2);
-    let elem2 = Content::new_with("this".to_string(),false,18);
-    let elem3 = Content::new_with("dope".to_string(),false,5);
-    let mut l : List<Content> = List::new();
+    let elem1 = EX4_Content::new_with("what".to_string(),true,2);
+    let elem2 = EX4_Content::new_with("this".to_string(),false,18);
+    let elem3 = EX4_Content::new_with("dope".to_string(),false,5);
+    let mut l : List<EX4_Content> = List::new();
     println!("{:?}",l);
     l.add(elem1);
     println!("{:?}",l);
@@ -79,13 +79,13 @@ fn main() {
     println!("{:?}",l);
     l.add(elem3);
     println!("{:?}",l);
-    let elem4 = Content::new_with("nope".to_string(),false,1);
+    let elem4 = EX4_Content::new_with("nope".to_string(),false,1);
     l.add(elem4);
     println!("{:?}",l);
 
-    let elem1 = Content::new_with("what".to_string(),true,2);
-    let elem2 = Content::new_with("this".to_string(),false,18);
-    let elem3 = Content::new_with("who".to_string(),true,18);
+    let elem1 = EX4_Content::new_with("what".to_string(),true,2);
+    let elem2 = EX4_Content::new_with("this".to_string(),false,18);
+    let elem3 = EX4_Content::new_with("who".to_string(),true,18);
 
     assert_eq!(elem1<elem2,true);
     assert_eq!(elem2<elem1,false);
@@ -93,21 +93,64 @@ fn main() {
 
     // ------------------ 5. ------------------
 
-    /*let mut el1 = Content{i:10, b:true};
-    let mut el2 = Content{i:11, b:true};
-    let mut el3 = Content{i:11, b:false};
+    let mut el1 = EX5_Content{i:10, b:true};
+    let mut el2 = EX5_Content{i:11, b:true};
+    let mut el3 = EX5_Content{i:11, b:false};
     assert_eq!(el1<el2,true);
     assert_eq!(el2<el1,false);
     assert_eq!(el2==el3,true);
 
-    let mut el1 = Content{i:10, b:true};
-    let mut el2 = Content{i:11, b:true};
-    let mut el3 = Content{i:11, b:false};
+    let mut el1 = EX5_Content{i:10, b:true};
+    let mut el2 = EX5_Content{i:11, b:true};
+    let mut el3 = EX5_Content{i:11, b:false};
     assert_eq!(el1.samebool(&el2), true);
     assert_eq!(el1.samebool(&el3), false);
 
-    let mut g : Graph<Content> = Graph::new();
+    let mut g : Graph<EX5_Content> = Graph::new();
     println!("{:?}",g);
-    */
 
+    let mut el1 = EX5_Content{i:10, b:true};
+    let mut el2 = EX5_Content{i:11, b:true};
+    let mut el3 = EX5_Content{i:12, b:false};
+    let mut g = Graph::new();
+    println!("{:?}",g);
+    g.add_node(el1);
+    println!("{:?}",g);
+    g.add_node(el2);
+    println!("{:?}",g);
+    g.add_node(el3);
+    println!("{:?}",g);
+
+    let mut el1 = EX5_Content{i:10, b:true};
+    let mut el2 = EX5_Content{i:8, b:false};
+    let mut g = Graph::new();
+    println!("{:?}",g);
+    g.add_node(el1);
+    println!("{:?}",g);
+    g.add_node(el2);
+    println!("{:?}",g);
+
+    let mut el1 = EX5_Content{i:10, b:true};
+    let mut el2 = EX5_Content{i:11, b:true};
+    let mut el3 = EX5_Content{i:12, b:true};
+    let mut g = Graph::new();
+    println!("{:?}",g);
+    g.add_node(el1);
+    println!("{:?}",g);
+    g.add_node(el2);
+    println!("{:?}",g);
+    g.add_node(el3);
+    println!("{:?}",g);
+
+    let mut el1 = EX5_Content{i:10, b:true};
+    let mut el2 = EX5_Content{i:9, b:false};
+    let mut el3 = EX5_Content{i:8, b:true};
+    let mut g = Graph::new();
+    println!("{:?}",g);
+    g.add_node(el1);
+    println!("{:?}",g);
+    g.add_node(el2);
+    println!("{:?}",g);
+    g.add_node(el3);
+    println!("{:?}",g);
 }
