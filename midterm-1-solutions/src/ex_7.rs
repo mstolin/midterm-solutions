@@ -1,6 +1,5 @@
 use std::cmp::max;
 use std::fmt::Formatter;
-use crate::Y;
 
 #[derive(Debug, Clone)]
 pub enum C {
