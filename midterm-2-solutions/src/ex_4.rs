@@ -64,9 +64,8 @@ impl<T> Node<T> {
     }
 }
 
-impl<T> Node<T>  where T: PartialOrd {
-    fn add(&mut self, elem: T) {
-        match self.next.as_mut() {
+impl<T> Node<T> where T: PartialOrd {
+    fn add(&mut self, elem: T) {match self.next.as_mut() {
             None => self.next = Some(Box::new(Node::new(elem, None))),
             Some(next_node) => {
                 if elem < next_node.elem {
