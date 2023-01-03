@@ -1,7 +1,9 @@
 use core::fmt::Debug;
+use std::borrow::Borrow;
 use std::cell::RefCell;
 use std::cmp::Ordering;
 use std::fmt::{Formatter};
+use std::ops::Deref;
 use std::rc::Rc;
 
 // ##########
@@ -73,5 +75,34 @@ impl SameBool for Content {
 impl<T> Graph<T> {
     pub fn new() -> Self {
         Graph { nodes: Vec::new() }
+    }
+}
+
+impl<T> Graph<T> where T: PartialOrd + SameBool {
+    fn get_neighbours(&self, val: &T) -> Vec<NodeRef<T>> {
+        self.nodes
+            .iter()
+            .filter(|n| n.as_ref().borrow().inner_value < *val)
+            .map(|n| Rc::clone(n))
+            .collect()
+    }
+
+    fn add_as_neighbour(&mut self, node: &NodeRef<T>) {
+        self.nodes
+            .iter()
+            .filter(|n| n.as_ref().borrow().inner_value.samebool(&node.as_ref().borrow().inner_value))
+            .for_each(|n| n.as_ref().borrow_mut().adjacent.push(Rc::clone(node)));
+    }
+
+    pub fn add_node(&mut self, inner_value: T) {
+        // 1. get the neighbours
+        let adjacent = self.get_neighbours(&inner_value);
+        // 2. create the node
+        let node = Node { inner_value, adjacent };
+        let node: NodeRef<T> = Rc::new(RefCell::new(node));
+        // 3. add the node as neighbour to others
+        self.add_as_neighbour(&node);
+        // 4. add node to graph
+        self.nodes.push(node);
     }
 }
