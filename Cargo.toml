@@ -1,0 +1,6 @@
+[workspace]
+
+members = [
+    "midterm-1-solutions",
+    "midterm-2-solutions",
+]
