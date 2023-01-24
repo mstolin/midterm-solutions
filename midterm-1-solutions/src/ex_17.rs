@@ -1,14 +1,12 @@
 fn replace(v: &mut Vec<String>, i: usize) {
     match v.get(i) {
         None => (),
-        Some(val) => {
-            match v.get(i - 1) {
-                None => (),
-                Some(prev) => {
-                    v[i] = format!("{} {}", prev, val);
-                }
+        Some(val) => match v.get(i - 1) {
+            None => (),
+            Some(prev) => {
+                v[i] = format!("{} {}", prev, val);
             }
-        }
+        },
     }
 }
 

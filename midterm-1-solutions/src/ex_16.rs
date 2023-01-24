@@ -18,15 +18,20 @@ impl std::fmt::Display for D {
     }
 }
 
-
 impl D {
     pub fn new() -> Self {
-        Self { c: C::C1(0, 0,), s: String::new() }
+        Self {
+            c: C::C1(0, 0),
+            s: String::new(),
+        }
     }
 
     pub fn new_with_C(c: C) -> Self {
         match c.clone() {
-            C::C1(_, _) => Self { c, s: "not there".to_string() },
+            C::C1(_, _) => Self {
+                c,
+                s: "not there".to_string(),
+            },
             C::C2(_, s) => Self { c, s },
         }
     }
@@ -34,7 +39,7 @@ impl D {
     pub fn larger(&self) -> i32 {
         match self.c.clone() {
             C::C1(_, _) => self.s.len() as i32,
-            C::C2(_, s) => max(self.s.len() as i32, s.len() as i32)
+            C::C2(_, s) => max(self.s.len() as i32, s.len() as i32),
         }
     }
 }

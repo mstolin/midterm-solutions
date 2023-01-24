@@ -9,7 +9,10 @@ pub struct X {
 
 impl X {
     pub fn new() -> Self {
-        X { s: "xxx".to_string(), i: 10, }
+        X {
+            s: "xxx".to_string(),
+            i: 10,
+        }
     }
 
     pub fn getstring(&mut self) -> String {
@@ -31,12 +34,14 @@ pub struct Y {
 
 impl Y {
     pub fn new() -> Self {
-        Self { z: true, c: "op".to_string() }
+        Self {
+            z: true,
+            c: "op".to_string(),
+        }
     }
     pub fn getstring(&mut self) -> String {
         mem::replace(&mut self.c, "".to_string())
     }
-
 }
 
 impl std::fmt::Display for Y {
