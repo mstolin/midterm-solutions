@@ -4,7 +4,7 @@ pub fn basicbox_sum(v: Vec<String>) -> Vec<Box<usize>> {
     for s in v {
         let l = s.len();
         r.push(Box::new(l));
-        len+=l;
+        len += l;
     }
     r.push(Box::new(len));
     r

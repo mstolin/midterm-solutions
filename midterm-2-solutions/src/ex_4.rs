@@ -17,11 +17,13 @@ pub struct Node<T> {
 
 #[derive(Debug)]
 pub struct Content {
-    s : String, b : bool, i : i32,
+    s: String,
+    b: bool,
+    i: i32,
 }
 impl Content {
-    pub fn new_with(s:String, b:bool, i:i32) -> Content {
-        return Content{s,b,i};
+    pub fn new_with(s: String, b: bool, i: i32) -> Content {
+        return Content { s, b, i };
     }
 }
 
@@ -57,15 +59,16 @@ impl PartialOrd for Content {
 
 impl<T> Node<T> {
     pub fn new(elem: T, next: Link<T>) -> Self {
-        Node {
-            elem,
-            next,
-        }
+        Node { elem, next }
     }
 }
 
-impl<T> Node<T> where T: PartialOrd {
-    fn add(&mut self, elem: T) {match self.next.as_mut() {
+impl<T> Node<T>
+where
+    T: PartialOrd,
+{
+    fn add(&mut self, elem: T) {
+        match self.next.as_mut() {
             None => self.next = Some(Box::new(Node::new(elem, None))),
             Some(next_node) => {
                 if elem < next_node.elem {
@@ -83,10 +86,7 @@ impl<T> Node<T> where T: PartialOrd {
 
 impl<T> List<T> {
     pub fn new() -> Self {
-        List {
-            head: None,
-            len: 0,
-        }
+        List { head: None, len: 0 }
     }
 
     pub fn size(&self) -> i32 {
@@ -104,7 +104,7 @@ impl<T> List<T> {
                 None => return None,
                 Some(node) => {
                     current = node.next.as_ref();
-                    i+=1;
+                    i += 1;
                 }
             }
         }
@@ -117,7 +117,10 @@ impl<T> List<T> {
     }
 }
 
-impl<T> List<T> where T: PartialOrd {
+impl<T> List<T>
+where
+    T: PartialOrd,
+{
     pub fn add(&mut self, elem: T) {
         match self.head.as_mut() {
             None => self.head = Some(Box::new(Node::new(elem, None))),
@@ -132,6 +135,6 @@ impl<T> List<T> where T: PartialOrd {
                 }
             }
         }
-        self.len+=1;
+        self.len += 1;
     }
 }

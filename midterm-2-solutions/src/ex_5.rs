@@ -1,18 +1,18 @@
 use core::fmt::Debug;
 use std::cell::RefCell;
 use std::cmp::Ordering;
-use std::fmt::{Formatter};
+use std::fmt::Formatter;
 use std::rc::Rc;
 
 // ##########
 
-pub trait SameBool{
-    fn samebool(&self, other:&Self)->bool;
+pub trait SameBool {
+    fn samebool(&self, other: &Self) -> bool;
 }
 #[derive(Debug)]
-pub struct Content{
-    pub i:i32,
-    pub b:bool
+pub struct Content {
+    pub i: i32,
+    pub b: bool,
 }
 impl Content {
     pub fn new_with(i: i32, b: bool) -> Content {
@@ -24,9 +24,14 @@ struct Node<T> {
     inner_value: T,
     adjacent: Vec<NodeRef<T>>,
 }
-impl<T:Debug> Debug for Node<T>{
+impl<T: Debug> Debug for Node<T> {
     fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
-        write!(f,"iv: {:?}, adj: {}", self.inner_value, self.adjacent.len())
+        write!(
+            f,
+            "iv: {:?}, adj: {}",
+            self.inner_value,
+            self.adjacent.len()
+        )
     }
 }
 #[derive(Debug)]
@@ -76,7 +81,10 @@ impl<T> Graph<T> {
     }
 }
 
-impl<T> Graph<T> where T: PartialOrd + SameBool {
+impl<T> Graph<T>
+where
+    T: PartialOrd + SameBool,
+{
     fn get_neighbours(&self, val: &T) -> Vec<NodeRef<T>> {
         self.nodes
             .iter()
@@ -88,7 +96,12 @@ impl<T> Graph<T> where T: PartialOrd + SameBool {
     fn add_as_neighbour(&mut self, node: &NodeRef<T>) {
         self.nodes
             .iter()
-            .filter(|n| n.as_ref().borrow().inner_value.samebool(&node.as_ref().borrow().inner_value))
+            .filter(|n| {
+                n.as_ref()
+                    .borrow()
+                    .inner_value
+                    .samebool(&node.as_ref().borrow().inner_value)
+            })
             .for_each(|n| n.as_ref().borrow_mut().adjacent.push(Rc::clone(node)));
     }
 
@@ -96,7 +109,10 @@ impl<T> Graph<T> where T: PartialOrd + SameBool {
         // 1. get the neighbours
         let adjacent = self.get_neighbours(&inner_value);
         // 2. create the node
-        let node = Node { inner_value, adjacent };
+        let node = Node {
+            inner_value,
+            adjacent,
+        };
         let node: NodeRef<T> = Rc::new(RefCell::new(node));
         // 3. add the node as neighbour to others
         self.add_as_neighbour(&node);

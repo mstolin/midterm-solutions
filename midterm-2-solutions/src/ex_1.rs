@@ -18,6 +18,9 @@ impl Nextable for char {
     }
 }
 
-pub fn printnext<T>(n: T) where T: Nextable + Debug {
+pub fn printnext<T>(n: T)
+where
+    T: Nextable + Debug,
+{
     println!("next of {:?} is {:?}", n, n.gimme_next())
 }

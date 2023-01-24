@@ -16,7 +16,7 @@ pub struct Iter<'a> {
 impl<'a> Iter<'a> {
     pub fn new(v: &'a Vec<i32>) -> Self {
         let odds: Vec<&i32> = v.iter().clone().filter(|n| *n % 2 == 1).collect();
-        Self { v: odds , index: 0 }
+        Self { v: odds, index: 0 }
     }
 }
 
